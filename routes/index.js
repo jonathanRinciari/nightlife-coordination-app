@@ -17,26 +17,26 @@ const yelp = new Yelp({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
-    if(req.user){
-      User.findOne({username: req.user.username}).then( (user) => {
-          if(user.lastSearch){
-              yelp.search({term: 'bar', location: user.lastSearch, limit: 10})
-                .then( (bars) => {
-                    getBars(JSON.parse(bars)).then((result) => res.send(result))
-                })
-                .catch((err) => console.log(err))
-          } else {
-              if(tempLocation){
-                  yelp.search({term: 'bar', location: tempLocation, limit: 10})
-                    .then( (bars) => {
-                        getBars(JSON.parse(bars)).then((result) => res.send(result))
-                    })
-              } else {
-                res.render('index', {title: 'Nightlife'}) 
-              }
-          }
+  if(req.user){
+    User.findOne({username: req.user.username}).then( (user) => {
+      if(user.lastSearch){
+        yelp.search({term: 'bar', location: user.lastSearch, limit: 10})
+        .then( (bars) => {
+        getBars(JSON.parse(bars)).then((result) => res.send(result))
       })
-    } else {
+        .catch((err) => console.log(err))
+      } else {
+        if(tempLocation){
+          yelp.search({term: 'bar', location: tempLocation, limit: 10})
+          .then( (bars) => {
+          getBars(JSON.parse(bars)).then((result) => res.send(result))
+        })
+      } else {
+        res.render('index', {title: 'Nightlife'}) 
+    }
+  }
+  }) 
+  } else {
         //not a previous user so load as normal
        res.render('index', {title: 'Nightlife'})
     }
