@@ -14,6 +14,7 @@ const yelp = new Yelp({
     app_secret: process.env.APP_SECRET
 })
     let tempLocation;
+    
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
