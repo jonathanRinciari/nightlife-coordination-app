@@ -7,6 +7,7 @@ const venueSchema = new Schema({
     name: String,
     address: String,
     attending: {type: Number, default: 0},
+    image: String,
     link: String,
     usersAttending: [String]
 })

@@ -10,9 +10,8 @@ const express = require('express'),
     session = require('express-session'),
     authRoutes = require('./routes/auth-routes'),
     passportSetup = require('./config/passport-setup');
-
-require('dotenv').config();
-
+    require('dotenv').config();
+  
 const app = express();
 
 //set up session

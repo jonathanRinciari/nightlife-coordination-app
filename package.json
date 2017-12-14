@@ -19,7 +19,8 @@
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "serve-favicon": "~2.4.5",
-    "yelp": "^1.0.2"
+    "yelp-fusion-v3": "0.0.8",
+    "yelpv3": "^1.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.12.5"
