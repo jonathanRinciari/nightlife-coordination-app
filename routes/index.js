@@ -13,9 +13,10 @@ const yelp = new Yelp({
     app_id: process.env.APP_ID,
     app_secret: process.env.APP_SECRET
 })
-
+    let tempLocation;
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    
     if(req.user){
       User.findOne({username: req.user.username}).then( (user) => {
           if(user.lastSearch){
@@ -23,8 +24,16 @@ router.get('/', function(req, res, next) {
                 .then( (bars) => {
                     getBars(JSON.parse(bars)).then((result) => res.send(result))
                 })
+                .catch((err) => console.log(err))
           } else {
-              res.render('index', {title: 'Nightlife'}) 
+              if(tempLocation){
+                  yelp.search({term: 'bar', location: tempLocation, limit: 10})
+                    .then( (bars) => {
+                        getBars(JSON.parse(bars)).then((result) => res.send(result))
+                    })
+              } else {
+                res.render('index', {title: 'Nightlife'}) 
+              }
           }
       })
     } else {
@@ -39,14 +48,16 @@ router.get('/search', function(req, res){
             if(err) throw err;
             console.log(doc)
         })
+    } else {
+        tempLocation = '23518'
     }
+    
     yelp.search({term: 'bar', location: '06510', limit: 5})
       .then(function (data) {
         getBars(JSON.parse(data)).then((result) => res.send(result))
 })
-.catch(function (err) {
-    console.error(err);
-});
+      .catch((err) => console.log(err));
+
 })
 
 
