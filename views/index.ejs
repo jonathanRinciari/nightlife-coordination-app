@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Night Life App</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="appContainer">
+      <div class="searchContainer">
+        <h1>Night Life App</h1>
+        <div class="searchbar">
+          <input type="text" placeholder="Enter a Zipcode"></input>
+          <button class="btn">Search</button>
+        </div>
+        <ul class="resultContainer">
+          <li class="results">
+            <a href="www.google.com">
+              <!--<img></img>-->
+              <div class="title">
+                <h3>Title</h3>
+                <h5>Address</h5>
+                <h5>Phone Number</h5>
+              </div>
+              <div>
+                <span>Going? <span>0</span></span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="scripts/index.js"></script>
   </body>
 </html>

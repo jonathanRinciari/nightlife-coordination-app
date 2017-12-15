@@ -33,13 +33,13 @@ router.get('/', function(req, res, next) {
           getBars(JSON.parse(bars)).then((result) => res.send(result))
         })
       } else {
-        res.render('index', {title: 'Nightlife'}) 
+        res.render('index') 
     }
   }
   }) 
   } else {
         //not a previous user so load as normal
-       res.render('index', {title: 'Nightlife'})
+       res.render('index')
     }
 });
 
@@ -53,7 +53,7 @@ router.get('/search', function(req, res){
         tempLocation = '23518'
     }
     
-    yelp.search({term: 'bar', location: '06510', limit: 5})
+    yelp.search({term: 'bar', location: req.body.search, limit: 5})
       .then(function (data) {
         getBars(JSON.parse(data)).then((result) => res.send(result))
 })
