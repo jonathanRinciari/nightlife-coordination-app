@@ -16,7 +16,7 @@ $(document).ready(function(){
                             <h3> ${data.name} </h3>
                             <h5> ${data.address} </h5>
                         </div>
-                        <button class="attendence"> 
+                        <button class="attendance"> 
                             Going? <span> ${data.attending} </span> 
                         </button>
                     </a>
@@ -34,7 +34,7 @@ $(document).ready(function(){
 
   });
   
-  $('ul').on('click', '.attendence', function(){
+  $('ul').on('click', '.attendance', function(){
       console.log($(this).children('span').text())
   })
  
