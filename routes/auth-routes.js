@@ -36,11 +36,37 @@ router.put('/history', (req, res) => {
 })
 
 router.put('/going', (req, res) => {
-    Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}}, {new: true}, (err, data) => {
-        if(err) throw err;
-        res.send(data)
-        console.log(data.attending, 'here')
-    })
+    if(req.user){
+    // Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}, $push: {usersAttending: req.user.username}}, {new: true}, (err, data) => {
+    //     if(err) throw err;
+    //     res.send(data)
+    
+    
+      Venue.findOneAndUpdate(
+          {_id: req.body.id, usersAttending: {$in: [req.user.username]}},
+          {$inc: {attending: -1},
+          $pull: {usersAttending: req.user.username}},
+          {new: true},
+          (err, data) => {
+        
+            if(err) throw err;
+            if(!data){
+              Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}, $addToSet: {usersAttending: req.user.username}}, {new: true}, (err, data) =>{
+                    res.send(data)
+                    
+                  })
+              } else {
+                  res.send(data);
+              }
+          
+         })
+        
+        
+        
+        
+    } else {
+        res.send({login: 'Sorry Please Login'})
+    }
 })
 
 router.get('/user_data', function(req, res) {
