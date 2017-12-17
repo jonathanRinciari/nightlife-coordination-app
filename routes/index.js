@@ -44,7 +44,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/search', function(req, res){
-    yelp.search({term: 'bar', location: req.body.search, limit: 5})
+    yelp.search({term: 'bar', location: req.query.search, limit: 5})
       .then(function (data) {
         getBars(JSON.parse(data)).then((result) => res.send(result))
 })

@@ -27,15 +27,16 @@ $(document).ready(function(){
 
     $('.btn').click(() =>{
         
-    if($('input').val() !== ''){
+
         $('.resultContainer').empty();
         var search = $('input').val();
-        console.log(search)
+        console.log(search, 'Test')
         $.ajax({
             type: 'GET',
             url: '/search',
             data: {search: search}
         }).then( (data) => {
+           
             data.forEach((data) =>{
                 
             var el = `<li class="results> 
@@ -59,10 +60,10 @@ $(document).ready(function(){
                 url: '/auth/history',
                 data: {search: search}
             }).then((data) =>{
-                console.log(data)
+               
             })
         
-    }
+    
 })
 
     
@@ -70,14 +71,16 @@ $(document).ready(function(){
   });
   
   $('ul').on('click', '.attendance', function(){
-    //   console.log($(this).children('span').text())
+      var t = ($(this).children());
+      console.log(t)
       var id = $(this).attr('id');
       $.ajax({
           type: 'PUT',
           url: '/auth/going',
           data: {id: id}
-      }).then(() => {
-          window.location.reload();
+      }).then((data) => {
+          console.log(data.attending)
+         t.text(data.attending)
       })
   })
  

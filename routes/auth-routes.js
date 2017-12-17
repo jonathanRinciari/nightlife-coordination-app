@@ -31,14 +31,15 @@ router.put('/history', (req, res) => {
         if(err) throw err;
      })
     } else {
-        console.log('not logged in')
+        // console.log('not logged in')
     }
 })
 
 router.put('/going', (req, res) => {
-    Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}}, (err, data) => {
+    Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}}, {new: true}, (err, data) => {
         if(err) throw err;
-        console.log(data)
+        res.send(data)
+        console.log(data.attending, 'here')
     })
 })
 
