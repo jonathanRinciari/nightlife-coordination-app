@@ -1,3 +1,5 @@
+/*#A239CA, #4717F6, #E7DFDD, #0E0B16*/
+
 body, html {
   margin: 0;
   height: 100%;
@@ -18,6 +20,7 @@ li {
 
 .appContainer {
   display: flex;
+  
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
@@ -29,7 +32,9 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 60%;
+  max-width: 500px;
+  border: 1px solid black;
 }
 
 .resultContainer {
@@ -38,12 +43,14 @@ li {
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 0;
 }
 
 .results {
   margin-top: 25px;
   border: 1px solid red;
-  width: 60%;
+  width: 80%;
+  max-width: 800px;
 }
 
 .results a {
@@ -82,6 +89,32 @@ input:focus {
 }
 
 .btn {
-  margin-top: 10px;
-  width: 80px;
+  cursor: pointer;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  width: 100px;
+  height: 30px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 2px 0;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.attendance {
+  background-color: green;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+.going {
+  background-color: red;
 }
