@@ -18,12 +18,12 @@ $(document).ready(function(){
                     <h5> ${data.address} </h5>
                 </div>
                 <button class="attendance" id=${data._id}> 
-                    Going? <span> ${data.attending} </span> 
+                    Going: <span> ${data.attending} </span> 
                 </button>
             </a>
          </li>
         `
-         $('ul').append(el)
+         $('.resultContainer').append(el)
         })
     })
     }
@@ -33,7 +33,6 @@ $(document).ready(function(){
       
         $('.resultContainer').empty();
         var search = $('input').val();
-        console.log(search, 'Test')
         $('.resultContainer').append(loading);
         $.ajax({
             type: 'GET',
@@ -51,13 +50,14 @@ $(document).ready(function(){
                     <h5> ${data.address} </h5>
                 </div>
                 <button class="attendance" id=${data._id}> 
-                    Going? <span> ${data.attending} </span> 
+                    Going: <span> ${data.attending} </span> 
                 </button>
             </a>
          </li>
         `
-    $('ul').append(el)
-    $('input').val('')
+        $('.resultContainer').append(el)
+        $('input').val('')
+    
     })
 })
     
@@ -75,7 +75,6 @@ $(document).ready(function(){
   });
   
    $('ul').on('click', '.attendance', function(e){
-       console.log($(this))
       var count = ($(this).children());
       var id = $(this).attr('id');
       e.preventDefault();
@@ -85,19 +84,18 @@ $(document).ready(function(){
           url: '/auth/going',
           data: {id: id}
       }).then((data, error) => {
-          console.log(data)
+          if(data.login){
+              alert('Login!')
+          }
             count.text(data.venue.attending)
             
-            if(data.going){
+            if(data.going && !data.login){
                 $(this).addClass('going');
             } else {
                 $(this).removeClass('going')
             }
             
-            
-        //   } else {
-            //   console.log(data.login)
-        //   }
       })
+      
   })
  

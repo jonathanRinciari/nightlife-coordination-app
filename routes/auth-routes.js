@@ -22,7 +22,7 @@ router.get('/github', passport.authenticate('github', {
 // callback route for google to redirect to
 // hand control to passport to use code to grab profile info
 router.get('/github/redirect', passport.authenticate('github'), (req, res) => {
-    res.send(req.user);
+    res.redirect('/')
 });
 
 router.put('/history', (req, res) => {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Night Life App</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href='/stylesheets/loader.css'/>
+    <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+    <nav>
+      <div class="navbarContainer">
+        <% if(!currentUserName) { %>
+        <ul class="navbar">
+          <li><a href="/auth/github">Login</a></li>
+        </ul>
+         <% } else { %>
+         <ul class="navbar-logout">
+           <li><a href="/auth/logout">Logout</a></li>
+         </ul>
+         <% } %>
+      </div>  
+    </nav>
+  </header>
