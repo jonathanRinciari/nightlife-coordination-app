@@ -5,7 +5,7 @@ const Venue = require('../models/venues');
 
 // auth login
 router.get('/login', (req, res) => {
-    res.send('loging')
+    res.redirect('/auth/github');
 });
 
 // auth logout
@@ -37,33 +37,23 @@ router.put('/history', (req, res) => {
 
 router.put('/going', (req, res) => {
     if(req.user){
-    // Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}, $push: {usersAttending: req.user.username}}, {new: true}, (err, data) => {
-    //     if(err) throw err;
-    //     res.send(data)
-    
-    
       Venue.findOneAndUpdate(
           {_id: req.body.id, usersAttending: {$in: [req.user.username]}},
           {$inc: {attending: -1},
           $pull: {usersAttending: req.user.username}},
           {new: true},
-          (err, data) => {
-        
+          (err, venue) => {
             if(err) throw err;
-            if(!data){
-              Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}, $addToSet: {usersAttending: req.user.username}}, {new: true}, (err, data) =>{
-                    res.send(data)
-                    
-                  })
-              } else {
-                  res.send(data);
-              }
-          
-         })
-        
-        
-        
-        
+            if(!venue){
+              Venue.findOneAndUpdate({_id: req.body.id}, {$inc: {attending: 1}, $addToSet: {usersAttending: req.user.username}}, {new: true}, (err, venue) =>{
+                if(err) throw err;
+                res.send({venue: venue, going: true})
+              })
+          } else {
+              res.send({venue: venue, going: false});
+          }
+     })
+     
     } else {
         res.send({login: 'Sorry Please Login'})
     }

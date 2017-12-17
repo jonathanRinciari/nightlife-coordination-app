@@ -6,12 +6,13 @@ module.exports = function getBars(bars){
     return new Promise( (resolve, reject) => {
         let barResults = bars.businesses.length
         bars.businesses.map((bar) => {
+            console.log(bars.businesses)
             Venue.findOne({
                 id: bar.id,
                 name: bar.name,
                 address: bar.location.address1,
                 link: bar.url,
-                image: bar.image
+                image: bar.image_url
             }, (err, venue) => {
                 if(!venue){
                     let d = new Date();
@@ -27,7 +28,7 @@ module.exports = function getBars(bars){
                         name: bar.name,
                         address: bar.location.address1,
                         link: bar.url,
-                        image: bar.image,
+                        image: bar.image_url,
                         expirationDate: expDate
                         
                     }).save((err, venue) => {

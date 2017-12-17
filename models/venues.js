@@ -13,6 +13,7 @@ const venueSchema = new Schema({
     usersAttending: [String]
 })
 
+venueSchema.index({'expireAt': 1}, {'expireAfterSeconds': 0});
 const Venue = mongoose.model('Venue', venueSchema);
 
 module.exports = Venue;
