@@ -31,7 +31,7 @@ li {
 .background {
   background-image: url('../imgs/background.jpg');
   background-size: cover;
-  min-height: 1200px;
+  min-height: 900px;
 }
 
 .searchContainer {

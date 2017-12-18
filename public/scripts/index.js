@@ -85,7 +85,7 @@ $(document).ready(function(){
           data: {id: id}
       }).then((data, error) => {
           if(data.login){
-              alert('Login!')
+              swal("Login First!", "You have to login first!", "error");
           }
             count.text(data.venue.attending)
             
