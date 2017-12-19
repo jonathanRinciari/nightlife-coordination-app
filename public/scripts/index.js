@@ -1,15 +1,16 @@
 
 var loading = '<div class="loader"></div>'
-
+var searchHist;
 $(document).ready(function(){
     $.getJSON('/auth/user_data', (data) => {
-        if(data.username){
+        console.log(searchHist)
+        if(data.username.githubId && data.username.lastSearch){
             $.ajax({
               type: 'GET',
-              url: '/search'
+              url: '/search',
+              data: {hist: data.username.lastSearch}
             }).then( (data) => {
             data.forEach((data) =>{
-                
             var el = `<li class='results'> 
             <a href='${data.link}'>
                 <img src="${data.image}" width="50" height="50">
@@ -26,14 +27,38 @@ $(document).ready(function(){
          $('.resultContainer').append(el)
         })
     })
-    }
-});
+    } else if(data.username.githubId && !data.username.lastSearch){
+         $.ajax({
+              type: 'GET',
+              url: '/search',
+              data: {hist: searchHist}
+            }).then( (data) => {
+            data.forEach((data) =>{
+            var el = `<li class='results'> 
+            <a href='${data.link}'>
+                <img src="${data.image}" width="50" height="50">
+                <div class="title"> 
+                    <h3> ${data.name} </h3>
+                    <h5> ${data.address} </h5>
+                </div>
+                <button class="attendance" id=${data._id}> 
+                    Going: <span> ${data.attending} </span> 
+                </button>
+            </a>
+         </li>
+        `
+         $('.resultContainer').append(el)
+        })
+    })
+    } 
+}); 
+
 
     $('.btn').click(() =>{
-      
         $('.resultContainer').empty();
         var search = $('input').val();
         $('.resultContainer').append(loading);
+        var searchHist = search;
         $.ajax({
             type: 'GET',
             url: '/search',
@@ -41,7 +66,7 @@ $(document).ready(function(){
         }).then( (data) => {
           $('.loader').remove();
             data.forEach((data) =>{
-            console.log(data.image)
+            
         var el = `<li class='results'> 
             <a href='${data.link}'>
                 <img src="${data.image}" width="50" height="50">

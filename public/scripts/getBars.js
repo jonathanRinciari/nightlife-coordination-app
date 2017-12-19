@@ -6,7 +6,6 @@ module.exports = function getBars(bars){
     return new Promise( (resolve, reject) => {
         let barResults = bars.businesses.length
         bars.businesses.map((bar) => {
-            console.log(bars.businesses)
             Venue.findOne({
                 id: bar.id,
                 name: bar.name,
